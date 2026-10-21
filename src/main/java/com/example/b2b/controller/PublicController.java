@@ -1,6 +1,8 @@
 package com.example.b2b.controller;
 
 import com.example.b2b.model.dto.HealthResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,8 @@ import java.time.Instant;
 @RequestMapping("/api/public")
 public class PublicController {
 
+    private static final Logger log = LoggerFactory.getLogger(PublicController.class);
+
     private final String appName;
     private final String appVersion;
 
@@ -22,6 +26,7 @@ public class PublicController {
     }
     @GetMapping("/health")
     public HealthResponse health() {
+        log.info("Health check requested");
         return new HealthResponse("UP", appName, appVersion, Instant.now());
     }
 }
